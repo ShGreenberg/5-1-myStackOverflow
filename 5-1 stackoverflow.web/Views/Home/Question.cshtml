@@ -1,0 +1,63 @@
+﻿@using _5_1_stackoverflow.data
+@model QuestionViewModel
+@{
+    ViewData["Title"] = "Question";
+}
+<style type="text/css">
+    .tag-border {
+        border: 1px solid dimgray;
+        border-radius: 5px;
+    }
+</style>
+
+<div  class="well col-md-9 col-md-offset-1" style="text-align:center; margin-top:40px">
+    <h2>@Model.Question.Title</h2>
+    <textarea class="form-control" rows="15" readonly>@Model.Question.Text</textarea>
+    <h5 class="row pull-left col-lg-offset-0">
+        @foreach (var t in Model.Question.QuestionTags)
+        {     
+        <span style="font-size:17px; display: inline-block" class="tag-border ">  @t.Tag.Name  </span>
+        }
+    </h5>
+    <br />
+    @if (Model.LoggedIn)
+    {
+        @if (Model.AlreadyLiked)
+        {
+            <button id="like-button" disabled class="btn btn-primary " data-id="@Model.Question.Id">LIKE</button>
+
+        }
+        else
+        {
+            <button id="like-button" class="btn btn-primary " data-id="@Model.Question.Id">LIKE</button>
+        }
+        <p>Current Likes:</p> <span id="likes-count">@Model.Question.Likes.Count</span>
+        <br />
+    }
+
+    @if (Model.Question.Answers != null)
+    {
+        @foreach (Answer a in Model.Question.Answers)
+        {
+            <div class="well col-md-8 col-md-offset-2">
+                <p>@a.Text</p>
+            </div>
+        }
+    }
+
+
+
+    @if (Model.LoggedIn)
+    {
+        <form method="post" action="/home/answerquestion">
+            <textarea cols="75" rows="10" name="text" placeholder="Your Answer"></textarea>
+            <input type="hidden" id="question-id" name="question.id" value="@Model.Question.Id" />
+            <button class="btn btn-info">Answer</button>
+        </form>
+    }
+
+</div>
+
+@section scripts{
+<script src="~/js/Question.js"></script>
+}

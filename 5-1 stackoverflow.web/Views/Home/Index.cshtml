@@ -1,0 +1,33 @@
+﻿@using _5_1_stackoverflow.data;
+@model IEnumerable<Question>
+@{
+    ViewData["Title"] = "Index";
+}
+<style type="text/css">
+    .tag-border {
+        border: 1px solid dimgray ;
+        border-radius: 5px;
+        
+    }
+</style>
+<h2 class="col-md-4 col-md-offset-5">Questions</h2>
+<br />
+<div class="container">
+    @foreach (Question q in Model)
+    {
+        @*<div class="col-md-3 col-md-offset-1 well">*@
+        <div class="well col-md-8 col-md-offset-3" style="margin-bottom: 20px; text-align: center;">
+            <a href="home/question?id=@q.Id" class=" col-md-offset-0" style="font-size: 40px" >@q.Title</a>
+
+            <textarea readonly class="form-control" rows="10">@q.Text</textarea>
+            <h5 class="row pull-left col-lg-offset-0" >
+                @foreach (var t in q.QuestionTags)
+                {
+                <span class="tag-border"  style="font-size: 17px; display:inline-block">@t.Tag.Name</span> 
+                }
+            </h5>
+        </div>
+    }
+</div>
+
+
