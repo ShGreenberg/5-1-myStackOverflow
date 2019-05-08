@@ -87,12 +87,28 @@ namespace _5_1_stackoverflow.data
         {
             using(var ctx = new StackContext(_connString))
             {
-                //              Question x =  ctx.Database.SqlQuery<Question>(@"select Top 1 * from Questions q
+                #region using own sql select
+                //using (var command = ctx.Database.GetDbConnection().CreateCommand())
+                //{
+                //    command.CommandText = @"SELECT Top 1 * from Questions q
                 //join QuestionTags qt
                 //on qt.QuestionId = q.Id
                 //join tags t
-                //on qt.TagId = t.Id  Where q.id = @id", new SqlParameter("@id", id));
-                //                return x;
+                //on qt.TagId = t.Id  Where q.id = @id"; new SqlParameter("@id", id);
+                //    ctx.Database.OpenConnection();
+                //    using (var result = command.ExecuteReader())
+                //    {
+                //        Question question = new Question
+                //        {
+                //            Text = (string)result["kdfjk"]
+                //        };
+                //        return question;
+                //    }
+                //}
+                #endregion
+                //not sure why this doesnt work maybe cause of version or that it not return it in right format
+                //var qe = ctx.Questions.FromSql("Select * from Questions").ToList();
+
                 return ctx.Questions.Include(q => q.Answers).Include(q => q.Likes).Include(q => q.QuestionTags).ThenInclude(qt => qt.Tag).FirstOrDefault(q => q.Id == id);
             }
         }

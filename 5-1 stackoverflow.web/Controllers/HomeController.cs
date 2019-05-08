@@ -69,6 +69,7 @@ namespace _5_1_stackoverflow.web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult LikeQuestion(int id)
         {
             Repository rep = new Repository(_connString);
@@ -78,7 +79,8 @@ namespace _5_1_stackoverflow.web.Controllers
             User user = rep.GetUserByEmail(email);
             //user.Likes.Add()
             int numLikes = rep.LikeQuestion(id, email);
-            return Json(numLikes);
+            // return Json(numLikes);
+            return RedirectToAction("index");
         }
     }
 }
