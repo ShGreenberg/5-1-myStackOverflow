@@ -6,7 +6,7 @@ using System.Text;
 
 namespace _5_1_stackoverflow.data
 {
-    public class StackContext: DbContext
+    public class StackContext : DbContext
     {
         private readonly string _connString;
 
@@ -24,7 +24,7 @@ namespace _5_1_stackoverflow.data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          optionsBuilder.UseSqlServer(_connString);
+            optionsBuilder.UseSqlServer(_connString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,13 +36,11 @@ namespace _5_1_stackoverflow.data
 
             modelBuilder.Entity<QuestionTags>().HasKey(qt => new { qt.QuestionId, qt.TagId });
 
-  //SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_QuestionTags_Questions_TagId".
-             //   The conflict occurred in database "StackOverflow", table "dbo.Questions", column 'Id'.
 
-       modelBuilder.Entity<QuestionTags>()
-                .HasOne(qt => qt.Question)
-                .WithMany(q => q.QuestionTags)
-                .HasForeignKey(qt => qt.QuestionId);
+            modelBuilder.Entity<QuestionTags>()
+                     .HasOne(qt => qt.Question)
+                     .WithMany(q => q.QuestionTags)
+                     .HasForeignKey(qt => qt.QuestionId);
 
             modelBuilder.Entity<QuestionTags>()
                 .HasOne(qt => qt.Tag)

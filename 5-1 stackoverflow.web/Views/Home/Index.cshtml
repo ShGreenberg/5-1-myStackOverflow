@@ -15,7 +15,6 @@
     <div class="col-md-8 col-md-offset-2">
         @foreach (Question q in Model)
         {
-            @*<div class="col-md-3 col-md-offset-1 well">*@
             <div class="well">
                 <h4>
                     <a href="home/question?id=@q.Id">@q.Title</a>
@@ -41,18 +40,3 @@
 
 
 
-@*@foreach (Question q in Model)
-{
-    @*<div class="col-md-3 col-md-offset-1 well">*@
-    @*<div class="well col-md-8 col-md-offset-3" style="margin-bottom: 20px; text-align: center;">
-        <a href="home/question?id=@q.Id" class=" col-md-offset-0" style="font-size: 40px">@q.Title</a>
-
-        <textarea readonly class="form-control" rows="10">@q.Text</textarea>
-        <h5 class="row pull-left col-lg-offset-0">
-            @foreach (var t in q.QuestionTags)
-            {
-                <span class=" label label-success" style="font-size: 17px; display:inline-block">@t.Tag.Name</span>
-            }
-        </h5>
-    </div>*@
-@*}*@

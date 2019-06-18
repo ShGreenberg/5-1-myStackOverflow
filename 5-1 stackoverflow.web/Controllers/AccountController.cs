@@ -29,8 +29,6 @@ namespace _5_1_stackoverflow.web.Controllers
         {
             Repository rep = new Repository(_connString);
             rep.AddUser(user, password);
-            //prob shuld have temp data - that succ logged in
-            //return Redirect($"/account/login?email={user.Email}&password={password}");
             return Redirect("/account/login");
         }
 

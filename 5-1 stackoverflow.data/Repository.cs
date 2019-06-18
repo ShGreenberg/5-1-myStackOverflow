@@ -45,13 +45,10 @@ namespace _5_1_stackoverflow.data
 
         }
 
-        // public User GetByEmail(string email)
-
         public IEnumerable<Question> GetQuestions()
         {
             using(var ctx = new StackContext(_connString))
             {
-                //return ctx.Questions.Include(q => q.Likes).Include(q => q.Tags).ToList();
                 return  ctx.Questions.OrderByDescending(q => q.DatePosted).Include(q => q.Likes).Include(q => q.QuestionTags).ThenInclude(qt => qt.Tag).ToList();
             }
         }
@@ -136,8 +133,6 @@ namespace _5_1_stackoverflow.data
         {
             using(var ctx = new StackContext(_connString))
             {
-                //ctx.Answers.Add(answer);
-                //ctx.SaveChanges();
                 ctx.Database.ExecuteSqlCommand("INSERT INTO Answers VALUES(@text, @qid)",
                     new SqlParameter("@text", answer.Text), new SqlParameter("@qid", answer.Question.Id));
             }
